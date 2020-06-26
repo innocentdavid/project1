@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset=utf-8>
+  <meta name=description content="">
+  <meta name=viewport content="width=device-width, initial-scale=1">
+  <title>Book Dojo | HOME | 3NITY</title>
+  <!-- font-awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+  <!-- fixed navbar -->
+  <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/navbar-top-fixed/">
+
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <!-- Popper JS -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+  <!-- custom stylesheet -->
+  <link rel="stylesheet" href="css/main.css" />
+  <!-- custom js script -->
+  <script src="js/main.js"></script>
+</head>
+<body>
+  <div class="modal login-modal">
+    <div class="">
+      <center><h2>LOGIN</h2></center>
+      <div>
+        <form method="post">
+          <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" name="name" id="name" placeholder="Enter your username here" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="password">password</label>
+            <input type="password" name="password" id="password" placeholder="password" class="form-control" />
+          </div>
+          <div class="btn btn-primary">
+            <input type="submit" name="login-submit" id="login-submit" value="Submit" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!--reg-modal-->
+  <div class="modal reg-modal">
+    <div class="">
+      <center><h3>REGISTER</h3></center>
+      <div class="">
+        <form method="get" accept-charset="utf-8">
+          <div class="form-group">
+            <label for="name">Full Name</label>
+            <input type="text" name="name" id="name" placeholder="Full Name" />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" name="email" id="email" placeholder="someone@mail.com" />
+          </div>
+          <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" placeholder="Username" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password" placeholder="password" class="form-control" />
+          </div>
+          <div class="form-group">
+            <label for="password">re-Password</label>
+            <input type="password" name="re-password" id="re-password" placeholder="re-password" class="form-control" />
+          </div>
+          <div class="form-group">
+            <input type="submit" name="submit" id="submit" value="Submit" />
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand" href="#">Book Dojo</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active"><a class="nav-link" href="index.html">HOME <span class="sr-only">(current)</span></a></li>
+        <li class="nav-item"><a class="nav-link" href="html.html">HTML</a></li>
+        <li class="nav-item"><a class="nav-link" href="css.html">CSS</a></li>
+        <li class="nav-item"><a class="nav-link" href="js.html">JAVASCRIPT</a></li>
+        <li class="nav-item"><a class="nav-link" href="py.html">PYTHON</a></li>
+        <li class="nav-item"><a class="nav-link" href="dj.html">DJANGO</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <header class="jumbotron" style="padding:0; padding-top:3.5rem;">
+  </header>
+
+  <footer>
+    <div>
+      <CENTER>
+        Copyright &copy;
+        <script>
+          document.write(new Date().getFullYear());
+        </script>
+        All rights reserved | This project is made with <i class="fa fa-heart"></i> by me: <span class="btn-sm btn-info"> Paul Innocent (3NITY)</span>
+      </CENTER>
+    </div>
+  </footer>
+  <br />
+</main>
+</body>
+</html>
