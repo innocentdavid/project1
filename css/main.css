@@ -41,27 +41,34 @@ section {
   height: 5vh;
 }
 
+.app_name {
+  font-size: 50px;
+}
+
 .catg {
   margin-bottom: 70px;
 }
-
+.lcatg {
+  margin-bottom: 20px;
+}
 table {
   text-align: center;
+}
+td {
+  font-size: 12px;
 }
 
 .more {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  margin: 0 20px;
+  margin: 0 10px;
 }
 
 
 
 
-
-
-@media (min-width:768px) {
+@media (min-width: 768px) {
   .search-extra {
     display: none!important;
   }
@@ -69,7 +76,16 @@ table {
     height: 2vh;
   }
 
+  .app_name {
+    font-size: 80px;
+  }
+
   .catg {
     margin-bottom: 50px;
   }
+  td {
+    font-size: 24px;
+  }
 }
+
+@media (max-width: 767px) {}
