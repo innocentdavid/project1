@@ -33,7 +33,7 @@
     <div class="container" style="border: 1px solid white; ">
       <center><h2>LOGIN</h2></center>
       <div>
-        <form method="post">
+        <form id="login_form" method="post" onsubmit="">
           <div class="form-group">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" placeholder="Enter your username here" class="form-control" />
@@ -43,7 +43,7 @@
             <input type="password" name="password" id="password" placeholder="password" class="form-control" />
           </div>
           <div class="form-group nav" style="margin-top: 30px; padding:0 20%">
-            <input type="submit" name="login-submit" id="login-submit" value="Submit" class="btn btn-primary" />
+            <button type="submit" name="login-submit" id="login-submit" class="btn btn-primary">Submit</button>
             <input type="button" class="btn btn-danger ml-auto modal-close" value="Close" />
           </div>
         </form>
@@ -56,7 +56,7 @@
     <div class="container" style="border: 1px solid white; ">
       <center><h2>REGISTER</h2></center>
       <div class="">
-        <form method="get" accept-charset="utf-8">
+        <form id="reg_form" method="post" onsubmit="return false">
           <div class="form-group">
             <label for="name">Full Name</label>
             <input type="text" name="name" id="name" placeholder="Full Name" class="form-control" />

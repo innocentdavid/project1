@@ -13,5 +13,7 @@ $(document).ready(function () {
     $(".modal").css("display", "none");
   })
 
-
+  function login_f() {
+    alert("hd");
+  }
 })
