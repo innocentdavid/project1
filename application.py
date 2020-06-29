@@ -36,6 +36,7 @@ db = scoped_session(sessionmaker(bind=engine))
 
 
 class User:
+
     def __init__(self, id, username, password):
         self.id = id
         self.username = username
@@ -72,20 +73,22 @@ def login():
             if not user.password == password:
                 return "Password incorrect! please try again"
 
-        return f"hey! {username}? not found! recheck or register"
+        return f"{username}? not found! recheck or register"
         return "d"
     return "invalid!"
 
-@app.route("/getAllBooks", methods=["GET", "POST"])
-def allBooks():
+
+@app.route("/getBooks", methods=["GET", "POST"])
+def getBooks():
     if request.method == "POST":
-        yearR = request.form['year']
-    
-        books=db.execute("SELECT * FROM books WHERE year >= :yearR",{"yearR": yearR})
-        
-        return books=books
+        yearR = request.form['yearR']
 
+        books = db.execute(
+            "SELECT * FROM books WHERE year >= :yearR", {"yearR": yearR})
 
+        for book in books:
+
+            return f'<tr> <td><a href="/single">{book.title}</a></td> <td>Paul Innocent</td> <td>2000</td> <td>4.9</td> <td>4,000</td> <td>012345678</td> </tr>'
 
 
 # @app.before_request

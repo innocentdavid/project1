@@ -35,4 +35,19 @@ $(document).ready(function () {
     })
   })
 
+  // get books within 2020 - 2015
+  getBook2020();
+  function getBook2020() {
+    $(".overlay").show();
+    $.ajax({
+      url: "/getBooks",
+      method: "POST",
+      data: {yearR:2020},
+      success: function (data) {
+        $(".overlay").hide();
+        $("#getBook2020").html(data);
+      }
+    })
+  }
+
 })
