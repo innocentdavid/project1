@@ -98,162 +98,24 @@ HOME
   <br /><br />
   <div class="main">
     <div class="catg catg1">
-      <div class="catg-m"> <a href="">
-          <h3>2015 - 2020</h3>
-        </a> </div>
       <table class="table table-sm">
         <thead>
           <tr>
             <th>Title</th>
             <th>Author</th>
             <th>Year</th>
-            <th>Avrg.<br />rating</th>
-            <th>Total<br />review</th>
-            <th>ISBN</th>
-          </tr>
-        </thead>
-        <tbody id="getBook2020">
-          <tr>
-            <td>
-              <center><h1>LOADING...</h1></center>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="more">
-        <div class="catg-m">
-          <h6><a href="full-list.html">24 More >></a></h6>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="catg catg2">
-      <div class="catg-m">
-        <a href="full-list.html">
-          <h3>2009 - 2014</h3>
-        </a>
-      </div>
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
-            <th>Avrg.<br />rating</th>
-            <th>Total<br />review</th>
             <th>ISBN</th>
           </tr>
         </thead>
         <tbody>
+          {% for book in books %}
           <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
+            <td style="text-align: start;"><a href="/single?book={{ book.id }}">{{ book.title }}</a></td>
+            <td>{{ book.author }}</td>
+            <td>{{ book.year }}</td>
+            <td>{{ book.isbn }}</td>
           </tr>
-          <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
-          </tr>
-          <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
-          </tr>
-          <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
-          </tr>
-          <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="more">
-        <div class="catg-m">
-          <h6><a href="full-list.html">24 More >></a></h6>
-        </div>
-      </div>
-    </div>
-
-
-    <div class="catg catg3 lcatg">
-      <div class="catg-m">
-        <a href="full-list.html">
-          <h3>2003 - 2008</h3>
-        </a>
-      </div>
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th>Title</th>
-            <th>Author</th>
-            <th>Year</th>
-            <th>Avrg.<br />rating</th>
-            <th>Total<br />review</th>
-            <th>ISBN</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
-          </tr>
-          <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
-          </tr>
-          <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
-          </tr>
-          <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
-          </tr>
-          <tr>
-            <td><a href="single.html">Seeker 3</a></td>
-            <td>Paul Innocent</td>
-            <td>2000</td>
-            <td>4.9</td>
-            <td>4,000</td>
-            <td>012345678</td>
-          </tr>
+          {% endfor %}
         </tbody>
       </table>
       <div class="more">

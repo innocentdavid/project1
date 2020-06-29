@@ -48,7 +48,10 @@ class User:
 
 @app.route("/")
 def index():
-    return render_template('index.html')
+
+    books = db.execute("SELECT * FROM books LIMIT 50").fetchall()
+
+    return render_template('index.html', books=books)
 
 
 @app.route("/login", methods=["GET", "POST"])
@@ -78,17 +81,22 @@ def login():
     return "invalid!"
 
 
-@app.route("/getBooks", methods=["GET", "POST"])
-def getBooks():
-    if request.method == "POST":
-        yearR = request.form['yearR']
+# @app.route("/getBooks", methods=["GET", "POST"])
+# def getBooks():
+#     if request.method == "POST":
+#         yearx = request.form['yearx']
+#         yeary = request.form['yeary']
 
-        books = db.execute(
-            "SELECT * FROM books WHERE year >= :yearR", {"yearR": yearR})
+#         books = db.execute(
+#             "SELECT * FROM books WHERE year BETWEEN :yearx AND :yeary", {"yearx": yearx, "yeary": yeary})
 
-        for book in books:
+#         for book in books:
 
-            return f'<tr> <td><a href="/single">{book.title}</a></td> <td>Paul Innocent</td> <td>2000</td> <td>4.9</td> <td>4,000</td> <td>012345678</td> </tr>'
+    # return book = book
+
+    # return f'<tr> <td><a href="/single">{book.title}</a></td>
+    # <td>Paul Innocent</td> <td>2000</td> <td>4.9</td> <td>4,000</td>
+    # <td>012345678</td> </tr>'
 
 
 # @app.before_request
