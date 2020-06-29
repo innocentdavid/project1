@@ -80,7 +80,10 @@ def login():
 def allBooks():
     if request.method == "POST":
         yearR = request.form['year']
-
+    
+        books=db.execute("SELECT * FROM books WHERE year >= :yearR",{"yearR": yearR})
+        
+        return books=books
 
 
 
