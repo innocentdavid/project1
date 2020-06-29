@@ -1,13 +1,13 @@
 import os
 #import requests
 from flask import (
-  Flask,
-  g,
-  session,
-  redirect,
-  request,
-  render_template,
-  url_for
+    Flask,
+    g,
+    session,
+    redirect,
+    request,
+    render_template,
+    url_for
 )
 from flask_session import Session
 from sqlalchemy import create_engine
@@ -17,14 +17,14 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 app = Flask(__name__)
 
-app.secret_key="secretkey"
+app.secret_key = "secretkey"
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
-    
-app.config["SQLALCHEMY_DATABASE_URI"]='postgres://tibchumrwgmuym:767d5d8610d692050757f686ab151d2c2f214a7f7bb00cfe2d81698226bb72d8@ec2-34-230-231-71.compute-1.amazonaws.com:5432/dbuj3hhsofrf5f'
+
+app.config["SQLALCHEMY_DATABASE_URI"] = 'postgres://tibchumrwgmuym:767d5d8610d692050757f686ab151d2c2f214a7f7bb00cfe2d81698226bb72d8@ec2-34-230-231-71.compute-1.amazonaws.com:5432/dbuj3hhsofrf5f'
 # Configure session to use filesystem
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
@@ -36,45 +36,57 @@ db = scoped_session(sessionmaker(bind=engine))
 
 
 class User:
-  def __init__(self, id, username, password):
-    self.id=id
-    self.username=username
-    self.password=password
-        
-  def __repr__(self):
-    return f"<user: {self.username} added!>"
-    
+    def __init__(self, id, username, password):
+        self.id = id
+        self.username = username
+        self.password = password
+
+    def __repr__(self):
+        return f"<user: {self.username} added!>"
+
+
 @app.route("/")
 def index():
     return render_template('index.html')
 
-@app.route("/action", methods=["GET", "POST"])
-def action():
-  if request.method == "POST":
-    session.pop('uid', None)
-    username = request.form["username"]
-    password = request.form["password"]
-    
-    users=[]
-    users.append(User(id=1, username="admin", password="admin"))
-    
-    Userz=db.execute("SELECT * FROM users WHERE username=:username",{"username": username}).fetchall()
-    for user in Userz:
-      print(f"user: {user.id} | {user.username}")
-      if user.username == username:
-        return "username exist"
-      if user.password == password:
-        session['uid']=user.id
-        return "Login successful!"
-      if not user.password == password:
-        return "Password incorrect! please try again"
-  
-    return f"hey! {username}? not found! recheck or register"
-    return "d"
-  return "<h1>invalid</h1>"
 
-#@app.before_request
-#def before_request():
-  #if 'uid' in session:
-    #user=[x for x in users if x.id == #session['uid']][0]
+@app.route("/login", methods=["GET", "POST"])
+def login():
+    if request.method == "POST":
+        session.pop('uid', None)
+        username = request.form["username"]
+        password = request.form["password"]
+
+        # users = []
+        # users.append(User(id=1, username="admin", password="admin"))
+
+        Userz = db.execute(
+            "SELECT * FROM users WHERE username=:username", {"username": username}).fetchall()
+        for user in Userz:
+            print(f"user: {user.id} | {user.username}")
+            if user.username == username:
+                return "username exist"
+            if user.password == password:
+                session['uid'] = user.id
+                return "Login successful!"
+            if not user.password == password:
+                return "Password incorrect! please try again"
+
+        return f"hey! {username}? not found! recheck or register"
+        return "d"
+    return "invalid!"
+
+@app.route("/getAllBooks", methods=["GET", "POST"])
+def allBooks():
+    if request.method == "POST":
+        yearR = request.form['year']
+
+
+
+
+
+# @app.before_request
+# def before_request():
+    # if 'uid' in session:
+    # user=[x for x in users if x.id == #session['uid']][0]
     #g.user = user
