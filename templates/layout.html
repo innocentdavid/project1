@@ -26,17 +26,25 @@
   <!-- general layout style-->
   <link rel="stylesheet" href="/static/layout.css" />
   <!-- custom js script -->
-  <script src="/static/main.js"></script>
+  <script src="/static/main.js?u={{ last_updated }}"></script>
 </head>
 <body>
+  <div class="overlay">
+    <div class="ovl-img">
+      <img src="/static/unnamed.gif" alt="LOADING" />
+    </div>
+    <div class="img-blocker">
+
+    </div>
+  </div>
   <div class="modal login-modal">
     <div class="container" style="border: 1px solid white; ">
       <center><h2>LOGIN</h2></center>
       <div>
-        <form id="login_form" method="post" onsubmit="">
+        <form id="loginForm" method="post" onsubmit="return false">
           <div class="form-group">
             <label for="name">Name</label>
-            <input type="text" name="name" id="name" placeholder="Enter your username here" class="form-control" />
+            <input type="text" name="username" id="name" placeholder="Enter your username here" class="form-control" />
           </div>
           <div class="form-group">
             <label for="password">password</label>
@@ -106,7 +114,6 @@
 
   <main>
     {% block body%}{% endblock %}
-
 
     <footer id="footer" class="bg-dark text-white">
       <div>

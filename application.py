@@ -1,6 +1,14 @@
 import os
-import requests
-from flask import Flask, session, redirect, render_template, session,url_for
+#import requests
+from flask import (
+  Flask,
+  g,
+  session,
+  redirect,
+  request,
+  render_template,
+  url_for
+)
 from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
@@ -9,6 +17,9 @@ from sqlalchemy.orm import scoped_session, sessionmaker
 
 app = Flask(__name__)
 
+app.secret_key="secretkey"
+
+app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 # Check for environment variable
 if not os.getenv("DATABASE_URL"):
     raise RuntimeError("DATABASE_URL is not set")
@@ -24,6 +35,46 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 
+class User:
+  def __init__(self, id, username, password):
+    self.id=id
+    self.username=username
+    self.password=password
+        
+  def __repr__(self):
+    return f"<user: {self.username} added!>"
+    
 @app.route("/")
 def index():
     return render_template('index.html')
+
+@app.route("/action", methods=["GET", "POST"])
+def action():
+  if request.method == "POST":
+    session.pop('uid', None)
+    username = request.form["username"]
+    password = request.form["password"]
+    
+    users=[]
+    users.append(User(id=1, username="admin", password="admin"))
+    
+    Userz=db.execute("SELECT * FROM users WHERE username=:username",{"username": username}).fetchall()
+    for user in Userz:
+      print(f"user: {user.id} | {user.username}")
+      if user.username == username:
+        return "username exist"
+      if user.password == password:
+        session['uid']=user.id
+        return "Login successful!"
+      if not user.password == password:
+        return "Password incorrect! please try again"
+  
+    return f"hey! {username}? not found! recheck or register"
+    return "d"
+  return "<h1>invalid</h1>"
+
+#@app.before_request
+#def before_request():
+  #if 'uid' in session:
+    #user=[x for x in users if x.id == #session['uid']][0]
+    #g.user = user
