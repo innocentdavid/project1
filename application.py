@@ -62,6 +62,7 @@ def login():
 
             if user.password == password:
                 session['uid'] = user.id
+                g.uid = user
                 return "Login successful!"
             return "Password incorrect! please try again"
         # return "username not found! please try again or register"
