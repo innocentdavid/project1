@@ -13,7 +13,11 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-# from models import *
+class UserC:
+    def __init__(self, id, username, password):
+        self.id = id
+        self.username = username
+        self.password = password
 
 
 app = Flask(__name__)
@@ -60,21 +64,12 @@ def login():
         
         for user in UserD:
 
-            if user.password == password:
+            if user and user.password == password:
                 session['uid'] = user.id
-                g.uid = user
+                g.user = user
                 return "Login successful!"
             return "Password incorrect! please try again"
-        # return "username not found! please try again or register"
-
-        # print(usersL.username)
-        # userL = [x for x in usersL if x.username == username]
-        # if user:
-        #     if user.password == password:
-        #         session['uid'] = user.id
-        #         return f"{userL}Login successful!"
-        #     return "username or Password incorrect! please try again"
-        # return "username not found! please try again or register"
+        return "username does not exist try again or register"
     return "invalid!"
 
 # @ap.route("/single", methods["GET", "POST"])
