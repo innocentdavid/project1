@@ -68,27 +68,4 @@ def login():
 
     return "invalid!"
 
-
-# @app.route("/getBooks", methods=["GET", "POST"])
-# def getBooks():
-#     if request.method == "POST":
-#         yearx = request.form['yearx']
-#         yeary = request.form['yeary']
-
-#         books = db.execute(
-#             "SELECT * FROM books WHERE year BETWEEN :yearx AND :yeary", {"yearx": yearx, "yeary": yeary})
-
-#         for book in books:
-
-    # return book = book
-
-    # return f'<tr> <td><a href="/single">{book.title}</a></td>
-    # <td>Paul Innocent</td> <td>2000</td> <td>4.9</td> <td>4,000</td>
-    # <td>012345678</td> </tr>'
-
-
-# @app.before_request
-# def before_request():
-    # if 'uid' in session:
-    # user=[x for x in users if x.id == #session['uid']][0]
-    #g.user = user
+@ap.route("/single", methods["GET", "POST"])
