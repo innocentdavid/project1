@@ -1,5 +1,5 @@
 import os
-#import requests
+# import requests
 from flask import (
     Flask,
     session,
@@ -13,11 +13,14 @@ from flask_session import Session
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 
-#from models import *
+# from models import *
+
 
 app = Flask(__name__)
 
 app.secret_key = os.urandom(24)
+
+app.config["DEBUG"] = True
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 # Check for environment variable
@@ -45,27 +48,32 @@ def index():
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
+
         session.pop('uid', None)
 
         username = request.form["username"]
         password = request.form["password"]
 
-
-        Users = db.execute(
+        UserD = db.execute(
             "SELECT * FROM users WHERE username = :username", {"username": username}).fetchall()
-        
-        for user in Users:
-            print(f"<user: {user.id} | {user.username} | {user.password} VS {username} and {password}")
-            
-            if username == f"{user.username}" :
-                
-                if password == "admin" :
-                    
-                    session['uid'] = user.id
-                    return "Login successful!"
-                return "Password incorrect! please try again"
-            return "username not found! please try again or register"
 
+        
+        for user in UserD:
+
+            if user.password == password:
+                session['uid'] = user.id
+                return "Login successful!"
+            return "Password incorrect! please try again"
+        # return "username not found! please try again or register"
+
+        # print(usersL.username)
+        # userL = [x for x in usersL if x.username == username]
+        # if user:
+        #     if user.password == password:
+        #         session['uid'] = user.id
+        #         return f"{userL}Login successful!"
+        #     return "username or Password incorrect! please try again"
+        # return "username not found! please try again or register"
     return "invalid!"
 
-@ap.route("/single", methods["GET", "POST"])
+# @ap.route("/single", methods["GET", "POST"])
