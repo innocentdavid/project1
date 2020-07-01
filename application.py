@@ -66,7 +66,7 @@ def index():
     if not g.user:
         return redirect(url_for('login'))
 
-    books = db.execute("SELECT * FROM books LIMIT 50").fetchall()
+    books = db.execute("SELECT * FROM books ORDER BY RANDOM() LIMIT 50").fetchall()
 
     return render_template('index.html', books=books)
 
@@ -106,21 +106,27 @@ def book_search():
     if request.method == "POST":
         keyword = request.form['search_keyword']
 
-        books = db.execute(f"SELECT * FROM books where title LIKE '%{keyword}%' LIMIT 50").fetchall()
+        books = db.execute(f"SELECT * FROM books where title LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
 
         if books:
             return render_template('index.html', books=books)
 
-        books = db.execute(f"SELECT * FROM books where author LIKE '%{keyword}%' LIMIT 50").fetchall()
+        books = db.execute(f"SELECT * FROM books where author LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
 
         if books:
             return render_template('index.html', books=books)
 
-        books = db.execute(f"SELECT * FROM books where year LIKE '%{keyword}%' LIMIT 50").fetchall()
+        books = db.execute(f"SELECT * FROM books where year::text LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
 
         if books:
             return render_template('index.html', books=books)
 
+        books = db.execute(f"SELECT * FROM books where isbn::text LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
+
+        if books:
+            return render_template('index.html', books=books)
+
+        return "<div class='d-flex justify-content-center align-items-center'><h1>BOOK NOT FOUND! <a href='/'>TRY AGAIN</a> </h1>"
         
     return redirect(url_for('index'))
 
