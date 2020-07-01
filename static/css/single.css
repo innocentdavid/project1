@@ -7,9 +7,6 @@
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
 
-/* Styling h1 and links
-––––––––––––––––––––––––––––––––– */
-
 
 .starrating > input {
   display: none;
@@ -53,12 +50,10 @@ header {
   padding-top: 3.5rem;
   height: 20vh;
 }
-.single-book * {
-  font-size: 1.2rem;
-}
-@media (min-width:767px) {
+
+@media (max-width:767px) {
   .single-book * {
-    font-size: 1.7rem!important;
+    font-size: 1.2rem!important;
   }
 }
 .user-rating:after {
