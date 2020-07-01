@@ -6,15 +6,13 @@
  ***/
 
 @import url(//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css);
-
-
-.starrating > input {
+.starrating>input {
   display: none;
 }
 
 /* Remove radio buttons */
 
-.starrating > label:before {
+.starrating>label:before {
   content: "\f005";
   /* Star */
   margin: 10px;
@@ -23,27 +21,25 @@
   display: inline-block;
 }
 
-.starrating > label
-{
+.starrating>label {
   color: #ccc;
   /* Start color when not clicked */
 }
 
-.starrating > input:checked ~ label
-{
+.starrating>input:checked~label {
   color: #ffca08;
 }
 
 /* Set yellow color when star checked */
 
-.starrating > input:hover ~ label
-{
+.starrating>input:hover~label {
   color: #ffca08;
 }
 
 /* Set yellow color when star hover */
 
 /* custom styles */
+
 header {
   padding: 0;
   margin: 0;
@@ -55,7 +51,27 @@ header {
   .single-book * {
     font-size: 1.2rem!important;
   }
+  /* width */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+    display: none;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: black;
+    border-radius: 10px;
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(46, 45, 45);
+  }
 }
+
 .user-rating:after {
   content: "\f005";
   /* Star */
@@ -63,9 +79,4 @@ header {
   font-size: 1.5em;
   font-family: FontAwesome;
   display: inline-block;
-}
-
-/*aside*/
-aside {
-  border-left: 1px solid black;
 }
