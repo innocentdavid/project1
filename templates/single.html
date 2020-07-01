@@ -42,10 +42,12 @@
 
 <!-- Page Content -->
 {% block body %}
+
+{% for book in books %}
 <section class="py-2">
   <div class="">
     <a href="#">
-      <h1 class="text-center book_title">A Wrinkle In Time</h1>
+      <h1 class="text-center book_title">{{ book.title }}</h1>
     </a>
   </div>
   <div class="container single-book" style="padding: 0 5%;">
@@ -54,7 +56,7 @@
         Title:
       </div>
       <div class="col">
-        A Wrinkle In Time
+        {{ book.title }}
       </div>
     </div>
     <div class="row">
@@ -62,7 +64,7 @@
         Author:
       </div>
       <div class="col">
-        Paul Innocent
+        {{ book.author }}
       </div>
     </div>
     <div class="row">
@@ -70,7 +72,7 @@
         Year:
       </div>
       <div class="col">
-        2020
+        {{ book.year }}
       </div>
     </div>
     <div class="row">
@@ -78,7 +80,7 @@
         ISBN:
       </div>
       <div class="col">
-        0123456789
+        {{ book.isbn }}
       </div>
     </div>
     <div class="row">
@@ -112,8 +114,10 @@
       <div class="col-12 main">
         <div class="">
           <h2 class="">Other Reviews</h2>
-          <h5>Total Reviews & Ratings <small>28</small></h5>
+          <small>
+            <h5>Total Reviews & Ratings <small>28</small></h5>
           <h5>Average Ratings <small>4.5</small></h5>
+          </small>
         </div>
         <br />
         <div class="">
@@ -172,5 +176,7 @@
     </div>
   </div>
 </section>
+{% endfor %}
+
 <br><br><br>
 {% endblock %}
