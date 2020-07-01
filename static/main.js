@@ -4,20 +4,6 @@ window.addEventListener('offline', function () {
 
 $(document).ready(function () {
 
-  $(".login-btn").on("click", function () {
-    $(".login-modal").css("display", "flex");
-  })
-  $(".modal-close").on("click", function () {
-    $(".modal").css("display", "none");
-  })
-
-  $(".reg-btn").on("click", function () {
-    $(".reg-modal").css("display", "flex");
-  })
-  $(".modal-close").on("click", function () {
-    $(".modal").css("display", "none");
-  })
-
   $("#loginForm").on("submit", function () {
     $(".overlay").show();
     $.ajax({
@@ -34,21 +20,4 @@ $(document).ready(function () {
       }
     })
   })
-
-  // // get books within 2020 - 2015
-  // getBook2020();
-  // function getBook2020() {
-  //   // $(".overlay").show();
-  //   $.ajax({
-  //     url: "/",
-  //     method: "POST",
-  //     data: {yearx:2015, yearx:2020},
-  //     success: function (data) {
-  //       // $(".overlay").hide();
-  //       // alert(data)
-  //       // $("#getBook2020").html(data);
-  //     }
-  //   })
-  // }
-
 })

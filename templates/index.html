@@ -14,30 +14,30 @@ HOME
 {% block navLink %}
 <ul class="navbar-nav ml-auto">
   <li class="nav-item active">
-    <a class="nav-link" href="index.html">Home
+    <a class="nav-link" href="/">Home
       <span class="sr-only">(current)</span>
     </a>
   </li>
-  {% if not g.user %}
-  <li class="nav-item">
-    <a href="/login" class="nav-link btn login-btn">Login</a>
-  </li>
-  <li class="nav-item">
-    <span class="nav-link btn reg-btn">Register</span>
-  </li>
+
+  {% if g.user %}
   <li class="nav-item">
     <a class="nav-link" href="/profile">{{g.user.username}}'s Profile</a>
   </li>
   {% endif %}
+
   <li class="nav-item">
     <a href="#footer" class="nav-link">About</a>
   </li>
   <li class="nav-item">
     <a class="nav-link" href="#">Contact</a>
   </li>
+
+  {% if g.user %}
   <li class="nav-item">
     <a class="nav-link" href="/logout">Logout</a>
   </li>
+  {% endif %}
+
 </ul>
 {% endblock %}
 
@@ -81,7 +81,7 @@ HOME
 <!-- Page Content -->
 
 {% block body %}
-<section class="py-5">
+<section class="py-5" id="section">
   <div class="d-flex justify-content-center" style="text-align: center; ">
     <h1 class="app_name">Book Review Dojo</h1>
     &nbsp;&nbsp;
@@ -90,7 +90,7 @@ HOME
   <div class="d-flex flex-column justify-content-center">
     <h3>Search <small>by: Titile, Author, Year, ISBN</small></h3>
     <div class="">
-      <form class="" id="" action="" method="get" accept-charset="utf-8">
+      <form action="/book_search" method="POST" id="book_search" accept-charset="utf-8">
         <div class="form-group">
           <input type="text" name="search_keyword" id="search_keyword" placeholder="Search" class="form-control" />
         </div>
@@ -125,7 +125,7 @@ HOME
       </table>
       <div class="more">
         <div class="catg-m">
-          <h6><a href="/more_book">4.5K More >></a></h6>
+          <h6><a href="#">4.95K More >></a></h6>
         </div>
       </div>
     </div>

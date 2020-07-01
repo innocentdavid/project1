@@ -25,9 +25,9 @@ class User:
         return f'<User: {self.username}>'
 
 users = []
-users.append(User(id=1, username='Anthony', password='password'))
-users.append(User(id=2, username='Becca', password='secret'))
-users.append(User(id=3, username='Carlos', password='somethingsimple'))
+users.append(User(id=1000000, username='Anthony', password='password'))
+users.append(User(id=2000000, username='Becca', password='secret'))
+users.append(User(id=3000000, username='Carlos', password='somethingsimple'))
 
 
 app = Flask(__name__)
@@ -96,6 +96,34 @@ def profile():
         return redirect(url_for('login'))
 
     return render_template('profile.html')
+
+
+@app.route("/book_search", methods=["GET", "POST"])
+def book_search():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == "POST":
+        keyword = request.form['search_keyword']
+
+        books = db.execute(f"SELECT * FROM books where title LIKE '%{keyword}%' LIMIT 50").fetchall()
+
+        if books:
+            return render_template('index.html', books=books)
+
+        books = db.execute(f"SELECT * FROM books where author LIKE '%{keyword}%' LIMIT 50").fetchall()
+
+        if books:
+            return render_template('index.html', books=books)
+
+        books = db.execute(f"SELECT * FROM books where year LIKE '%{keyword}%' LIMIT 50").fetchall()
+
+        if books:
+            return render_template('index.html', books=books)
+
+        
+    return redirect(url_for('index'))
+
 
 @app.route('/logout')
 def logout():

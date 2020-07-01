@@ -29,6 +29,7 @@
   <script src="/static/main.js?u={{ last_updated }}"></script>
 </head>
 <body>
+  <!-- overlay -->
   <div class="overlay">
     <div class="ovl-img">
       <img src="/static/unnamed.gif" alt="LOADING" />
@@ -37,62 +38,7 @@
 
     </div>
   </div>
-  <div class="modal login-modal">
-    <div class="container" style="border: 1px solid white; ">
-      <center><h2>LOGIN</h2></center>
-      <div>
-        <form id="loginForm" method="post" onsubmit="return false">
-          <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" name="username" id="name" placeholder="Enter your username here" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="password">password</label>
-            <input type="password" name="password" id="password" placeholder="password" class="form-control" />
-          </div>
-          <div class="form-group nav" style="margin-top: 30px; padding:0 20%">
-            <button type="submit" name="login-submit" id="login-submit" class="btn btn-primary">Submit</button>
-            <input type="button" class="btn btn-danger ml-auto modal-close" value="Close" />
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
 
-  <!--reg-modal-->
-  <div class="modal reg-modal">
-    <div class="container" style="border: 1px solid white; ">
-      <center><h2>REGISTER</h2></center>
-      <div class="">
-        <form id="reg_form" method="post" onsubmit="return false">
-          <div class="form-group">
-            <label for="name">Full Name</label>
-            <input type="text" name="name" id="name" placeholder="Full Name" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" name="email" id="email" placeholder="someone@mail.com" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" name="username" id="username" placeholder="Username" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" name="password" id="password" placeholder="password" class="form-control" />
-          </div>
-          <div class="form-group">
-            <label for="password">re-Password</label>
-            <input type="password" name="re-password" id="re-password" placeholder="re-password" class="form-control" />
-          </div>
-          <div class="form-group nav" style="margin-top: 30px; padding:0 20%">
-            <input type="submit" name="submit" id="submit" value="Submit" class="btn btn-primary" />
-            <input type="button" class="btn btn-danger ml-auto modal-close" value="Close" />
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
   <!-- Navigation -->
   <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
