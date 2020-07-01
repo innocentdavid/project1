@@ -1,26 +1,21 @@
-{% extend "layout.html" %}
+{% extends "layout.html" %}
 
 <!-- title -->
-{% block title %}|{% endblock %}
+{% block title %} Book Review Dojo {% endblock %}
 
 <!-- custom stylesheet -->
 {% block custom-css %}
-<link rel="stylesheet" href="css/single.css" />
+<link rel="stylesheet" href="static/single.css" />
 {% endblock %}
+
 <!-- nav-link -->
 {% block nav-link %}
 <ul class="navbar-nav ml-auto">
   <li class="nav-item">
-    <a class="nav-link" href="index.html">Home</a>
-  </li>
-  <li class="nav-item">
-    <span class="nav-link login-btn" href="#">Login</span>
-  </li>
-  <li class="nav-item">
-    <span class="nav-link reg-btn" href="#">Register</span>
+    <a class="nav-link" href="/">Home</a>
   </li>
   <li class="nav-item active">
-    <a class="nav-link" href="profile.html">Profile
+    <a class="nav-link" href="/profile">{{g.user.username}}'s Profile
       <span class="sr-only">(current)</span>
     </a>
   </li>
@@ -30,6 +25,11 @@
   <li class="nav-item">
     <a class="nav-link" href="#">Contact</a>
   </li>
+  {% if g.user %}
+  <li class="nav-item">
+    <a class="nav-link" href="/logout">Logout</a>
+  </li>
+  {% endif %}
 </ul>
 {% endblock %}
 

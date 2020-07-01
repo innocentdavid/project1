@@ -24,6 +24,7 @@ class User:
     def __repr__(self):
         return f'<User: {self.username}>'
 
+
 users = []
 users.append(User(id=1000000, username='Anthony', password='password'))
 users.append(User(id=2000000, username='Becca', password='secret'))
@@ -47,6 +48,7 @@ db = scoped_session(sessionmaker(bind=engine))
 
 app.secret_key = 'somesecretkeythatonlyishouldknow'
 
+
 @app.before_request
 def before_request():
     g.user = None
@@ -55,18 +57,21 @@ def before_request():
         UserD = db.execute("SELECT * FROM users").fetchall()
 
         for userr in UserD:
-            users.append(User(id=userr.id, username=userr.username, password=userr.password))
+            users.append(
+                User(id=userr.id, username=userr.username, password=userr.password))
 
         for user in users:
             if user.id == session['user_id']:
                 g.user = user
-        
+
+
 @app.route("/", methods=["GET", "POST"])
 def index():
     if not g.user:
         return redirect(url_for('login'))
 
-    books = db.execute("SELECT * FROM books ORDER BY RANDOM() LIMIT 50").fetchall()
+    books = db.execute(
+        "SELECT * FROM books ORDER BY RANDOM() LIMIT 50").fetchall()
 
     return render_template('index.html', books=books)
 
@@ -80,7 +85,7 @@ def login():
         password = request.form['password']
 
         print(users)
-        
+
         user = [x for x in users if x.username == username][0]
         if user and user.password == password:
             session['user_id'] = user.id
@@ -89,6 +94,7 @@ def login():
         return redirect(url_for('login'))
 
     return render_template('login.html')
+
 
 @app.route('/profile')
 def profile():
@@ -106,28 +112,50 @@ def book_search():
     if request.method == "POST":
         keyword = request.form['search_keyword']
 
-        books = db.execute(f"SELECT * FROM books where title LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
+        books = db.execute(
+            f"SELECT * FROM books where title LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
 
         if books:
             return render_template('index.html', books=books)
 
-        books = db.execute(f"SELECT * FROM books where author LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
+        books = db.execute(
+            f"SELECT * FROM books where author LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
 
         if books:
             return render_template('index.html', books=books)
 
-        books = db.execute(f"SELECT * FROM books where year::text LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
+        books = db.execute(
+            f"SELECT * FROM books where year::text LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
 
         if books:
             return render_template('index.html', books=books)
 
-        books = db.execute(f"SELECT * FROM books where isbn::text LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
+        books = db.execute(
+            f"SELECT * FROM books where isbn::text LIKE '%{keyword}%' ORDER BY RANDOM() LIMIT 50").fetchall()
 
         if books:
             return render_template('index.html', books=books)
 
-        return "<div class='d-flex justify-content-center align-items-center'><h1>BOOK NOT FOUND! <a href='/'>TRY AGAIN</a> </h1>"
-        
+        return "<div style='display:flex; justify-content:center; align-items:center; height:95vh'><h1>BOOK NOT FOUND! <a href='/'>TRY AGAIN</a> </h1>"
+
+    return redirect(url_for('index'))
+
+
+@app.route('/single', methods=["GET", "POST"])
+def single():
+    if not g.user:
+        return redirect(url_for('login'))
+
+    if request.method == "GET":
+        bid = request.args.get('book')
+
+        books = db.execute(f"SELECT * FROM books where id = {bid}").fetchall()
+
+        if books:
+            return render_template('single.html', books=books)
+            
+        return f'<div style="display:flex; justify-content:center; align-items:center; height:95vh"><h1>Hey <b style="color:blue;">{g.user.username}</b> stop playing with the url :) <a href="/">Go back</a></h1></div>'
+
     return redirect(url_for('index'))
 
 
