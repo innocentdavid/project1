@@ -1,0 +1,27 @@
+{% for review in reviews %}
+{% for user in users %}
+
+<div class="row mb-3">
+  <div class="col-3 col-md-2" style="position: relative; width:100%; height:auto; border-right:1px solid black; background-color: white; ">
+    <div class="" style="position:absolute; top:5%; left: 30%; width:40%; height:60%; border:;">
+      <img src="/static/images/default.jpg" alt="d-img" width="100%" />
+    </div>
+    <div class="text-center" style="position: absolute; bottom: 5%; left:0%; width:100%;">
+      {{ user.username }}
+    </div>
+  </div>
+  <div class="col">
+    <div class="" style=" height:auto; margin-top: 0px; overflow-wrap:break-words; overflow-y: auto;">
+      <p class="comment-box" style="padding:7px;">
+        {{ review.comment }}
+      </p>
+    </div>
+    <div class="d-flex align-items-center">
+      <span>28-06-'20(12:33)</span>
+      <span class="user-rating ml-auto">{{ review.rating }}</span>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+{% endfor %}

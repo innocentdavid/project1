@@ -158,7 +158,46 @@ def single():
 
     return redirect(url_for('index'))
 
+@app.route('/review', methods=["GET", "POST"])
+def review():
+    if not g.user:
+        return redirect(url_for(index))
+    if request.method == "POST":
+        bid = request.form['bid']
+        uid = request.form['uid']
+        rating = request.form['rating']
+        comment = request.form['comment']
+    
+        review = db.execute("SELECT * FROM reviews WHERE bid = :bid AND uid = :uid", {"bid": bid, "uid": uid}).fetchall()
+        
+        if review:
+            # that is the user has reviewed the book before
+            return "You have already reviewed this book"
+          
+        Nreview = db.execute("INSERT INTO reviews (bid, uid, rating, comment) VALUES (:bid, :uid, :rating, :comment)", {"bid": bid, "uid": uid, "rating": rating, "comment": comment})
+        db.commit()
+        
+        if Nreview:
+            return "reviewed"
+  
+    return redirect(url_for(index))
 
+
+@app.route('/getReview', methods=("GET", "POST"))
+def getReview():
+    if request.method == "POST":
+        bid = request.form['bid']
+        
+        reviews = db.execute("SELECT * FROM reviews WHERE bid = :bid ORDER BY id DESC LIMIT 10", {"bid": bid}).fetchall()
+        if reviews:
+            for review in reviews:
+                uid = review.uid
+                
+                users = db.execute("SELECT * FROM users WHERE id = :uid", {"uid": uid}).fetchall()
+                 
+                return render_template("reviews.html", reviews=reviews, users=users)
+        return "<center><h1>Be The First To Review This Book</h1></center>"
+            
 @app.route('/logout')
 def logout():
     if g.user:

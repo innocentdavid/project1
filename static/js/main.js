@@ -4,17 +4,41 @@ window.addEventListener('offline', function () {
 
 $(document).ready(function () {
 
-  $("#loginForm").on("submit", function () {
+  var wl = window.href;
+  alert (wl);
+  getBid();
+  function getBid() {
+    alert();
+    $("#bid").submit();
+  }
+
+  $("#bid").on("submit", function getReview(e) {
+    e.preventDefault();
     $(".overlay").show();
     $.ajax({
-      url: "/login",
+      url: "/getReview",
       method: "POST",
-      data: $("#loginForm").serialize(),
+      data: $("#bid").serialize(),
       success: function (data) {
+        $("#reviews").html(data);
         $(".overlay").hide();
-        if (data == "Login successful!") {
-          window.location = "/";
-        } else if (data != "Login successful!") {
+      }
+    })
+  })
+
+  $("#reviewForm").on("submit", function (e) {
+    e.preventDefault();
+    $(".overlay").show();
+    $.ajax({
+      url: "/review",
+      method: "POST",
+      data: $("#reviewForm").serialize(),
+      success: function (data) {
+        getBid();
+        //$(".overlay").hide();
+        if (data == "reviewed") {
+          alert(data);
+        } else if (data != "reviewed") {
           alert(data);
         }
       }
