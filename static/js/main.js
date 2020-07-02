@@ -4,27 +4,24 @@ window.addEventListener('offline', function () {
 
 $(document).ready(function () {
 
-  var wl = window.href;
-  alert (wl);
-  getBid();
-  function getBid() {
-    alert();
-    $("#bid").submit();
+  var wl = window.location.href;
+  if (wl.indexOf("/single") > 0) {
+    getBid();
   }
 
-  $("#bid").on("submit", function getReview(e) {
-    e.preventDefault();
+  function getBid() {
+    var bid = $("#bid_inp").val();
     $(".overlay").show();
     $.ajax({
       url: "/getReview",
       method: "POST",
-      data: $("#bid").serialize(),
+      data: { bid: bid },
       success: function (data) {
         $("#reviews").html(data);
         $(".overlay").hide();
       }
     })
-  })
+  }
 
   $("#reviewForm").on("submit", function (e) {
     e.preventDefault();
@@ -37,11 +34,14 @@ $(document).ready(function () {
         getBid();
         //$(".overlay").hide();
         if (data == "reviewed") {
-          alert(data);
         } else if (data != "reviewed") {
-          alert(data);
+          $(".e_msg").text(data);
         }
       }
     })
   })
+
+  setInterval(() => {
+    if ($.trim($(".e_msg").text()) != '');
+  }, 5000);
 })

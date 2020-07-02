@@ -27,8 +27,6 @@ class User:
 
 users = []
 users.append(User(id=1000000, username='Anthony', password='password'))
-users.append(User(id=2000000, username='Becca', password='secret'))
-users.append(User(id=3000000, username='Carlos', password='somethingsimple'))
 
 
 app = Flask(__name__)
@@ -79,12 +77,16 @@ def index():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        UserD = db.execute("SELECT * FROM users").fetchall()
+
+        for userr in UserD:
+            users.append(
+                User(id=userr.id, username=userr.username, password=userr.password))
+
         session.pop('user_id', None)
 
         username = request.form['username']
         password = request.form['password']
-
-        print(users)
 
         user = [x for x in users if x.username == username][0]
         if user and user.password == password:
@@ -157,6 +159,7 @@ def single():
         return f'<div style="display:flex; justify-content:center; align-items:center; height:95vh"><h1>Hey <b style="color:blue;">{g.user.username}</b> stop playing with the url :) <a href="/">Go back</a></h1></div>'
 
     return redirect(url_for('index'))
+    
 
 @app.route('/review', methods=["GET", "POST"])
 def review():
@@ -188,13 +191,13 @@ def getReview():
     if request.method == "POST":
         bid = request.form['bid']
         
-        reviews = db.execute("SELECT * FROM reviews WHERE bid = :bid ORDER BY id DESC LIMIT 10", {"bid": bid}).fetchall()
+        reviews = db.execute(f"SELECT * FROM reviews WHERE bid = {bid} ORDER BY id LIMIT 10").fetchall()
         if reviews:
             for review in reviews:
                 uid = review.uid
                 
                 users = db.execute("SELECT * FROM users WHERE id = :uid", {"uid": uid}).fetchall()
-                 
+                
                 return render_template("reviews.html", reviews=reviews, users=users)
         return "<center><h1>Be The First To Review This Book</h1></center>"
             

@@ -44,10 +44,7 @@
 {% block body %}
 
 {% for book in books %}
-<form id="bid" onsubmit="return false">
-  <input type="text" name="bid" value="{{ book.id }}" />
-  <input type="submit" name="bid_submit" id="" value="Submit" />
-</form>
+<input type="hidden" name="bid" id="bid_inp" value="{{ book.id }}" />
 <section class="py-2">
   <div class="">
     <a href="#">
@@ -152,6 +149,7 @@
         <!--user's review-->
         <div class="container-fluid">
           <h5>Reviews</h5>
+          <center><h5 class="e_msg">e_msg</h5></center>
           <div class="container-fluid" id="reviews" style="">
 
             <!-- comments -->
