@@ -73,6 +73,26 @@ def index():
 
     return render_template('index.html', books=books)
 
+@app.route('/register', methods=['GET', 'POST'])
+def register():
+    if request.method == "POST":
+        username = request.form['username']
+        password = request.form['password']
+
+        UserD = db.execute("SELECT * FROM users WHERE username = :username",{"username": username}).fetchall()
+        if UserD:
+
+            return render_template('register.html', e_msg="username already taken!")
+
+        Nuser = db.execute("INSERT INTO users (username, password) VALUES (:username, :password)", {"username": username, "password": password})
+        db.commit()
+
+        if Nuser:
+            return redirect(url_for('login'))
+
+        return "Something went wrong, try again"
+
+    return render_template('register.html')
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():

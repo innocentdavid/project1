@@ -17,10 +17,11 @@
           <div class="column is-half">
             <!-- Login | Register -->
             <div class="nav" style="width: 60%; margin: auto;">
-              <span style="font-size: 150%!important; font-weight: bolder; text-decoration: underline; cursor: pointer;">Login</span>
-              <a href="/register" style="margin-left: 30%; font-size: 150%!important; font-weight: bold; color: rgb(216, 214, 208);">Sign up</a>
+                <span style="font-size: 150%!important; font-weight: bolder; text-decoration: underline; cursor: pointer;">Sign up</span>
+                <a href="/login" style="margin-left: 30%; font-size: 150%!important; font-weight: bold; color: rgb(216, 214, 208);">Login</a>
             </div><br>
-            <form method="POST">
+            <div><center><span class="e_msg">{{ e_msg }}</span></center></div>
+            <form method="POST" id="regForm">
               <div class="field">
                 <label class="label">Username</label>
                 <div class="control has-icons-left has-icons-right">
@@ -42,8 +43,9 @@
               <div class="field">
                 <p class="control">
                   <button type="submit" class="button is-success">
-                    Login
+                    Sign up
                   </button>
+                  <h4><small>Try Login After Registeration!</small></h4>
                 </p>
               </div>
             </form>

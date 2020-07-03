@@ -1,12 +1,13 @@
 header {
   padding: 0;
   margin: 0;
-  padding-top: 3.5rem;
-  height: 25vh;
+  padding-top: 4rem;
+  height: 5vh;
 }
 
 @media (min-width:767px) {
   header {
-    height: 35vh;
+    padding-top: 4rem;
+    height: 5vh;
   }
 }

@@ -11,7 +11,6 @@ $(document).ready(function () {
 
   function getBid() {
     var bid = $("#bid_inp").val();
-    //$(".overlay").show();
     $.ajax({
       url: "/getReview",
       method: "POST",
@@ -20,7 +19,6 @@ $(document).ready(function () {
       },
       success: function (data) {
         $("#reviews").html(data);
-        //$(".overlay").hide();
       }
     })
   }
