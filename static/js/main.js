@@ -11,14 +11,16 @@ $(document).ready(function () {
 
   function getBid() {
     var bid = $("#bid_inp").val();
-    $(".overlay").show();
+    //$(".overlay").show();
     $.ajax({
       url: "/getReview",
       method: "POST",
-      data: { bid: bid },
+      data: {
+        bid: bid
+      },
       success: function (data) {
         $("#reviews").html(data);
-        $(".overlay").hide();
+        //$(".overlay").hide();
       }
     })
   }
@@ -32,8 +34,9 @@ $(document).ready(function () {
       data: $("#reviewForm").serialize(),
       success: function (data) {
         getBid();
-        //$(".overlay").hide();
+        $(".overlay").hide();
         if (data == "reviewed") {
+          $("#rfta").val('');
         } else if (data != "reviewed") {
           $(".e_msg").text(data);
         }
@@ -42,6 +45,9 @@ $(document).ready(function () {
   })
 
   setInterval(() => {
-    if ($.trim($(".e_msg").text()) != '');
-  }, 5000);
+    if ($.trim($(".e_msg").text()) != '') {
+      $(".e_msg").text('');
+    };
+  },
+    10000);
 })

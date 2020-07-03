@@ -168,8 +168,11 @@ def review():
     if request.method == "POST":
         bid = request.form['bid']
         uid = request.form['uid']
-        rating = request.form['rating']
         comment = request.form['comment']
+        try:
+            rating = request.form['rating']
+        except:
+            rating = 0
     
         review = db.execute("SELECT * FROM reviews WHERE bid = :bid AND uid = :uid", {"bid": bid, "uid": uid}).fetchall()
         
