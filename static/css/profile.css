@@ -1,13 +1,22 @@
+/* custom styles */
+
 header {
   padding: 0;
   margin: 0;
-  padding-top: 4rem;
-  height: 5vh;
+  padding-top: 3.5rem;
+  height: 20vh;
 }
 
-@media (min-width:767px) {
+footer {
+  position: fixed!important;
+  bottom: 0!important;
+}
+
+@media (max-width: 767px) {
   header {
-    padding-top: 4rem;
-    height: 5vh;
+    height: 10vh!important;
+  }
+  footer {
+    font-size: 12px;
   }
 }

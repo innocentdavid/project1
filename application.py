@@ -1,4 +1,5 @@
 import os
+import math
 
 from flask import (
     Flask,
@@ -45,7 +46,6 @@ engine = create_engine(os.getenv("DATABASE_URL"))
 db = scoped_session(sessionmaker(bind=engine))
 
 app.secret_key = 'somesecretkeythatonlyishouldknow'
-
 
 @app.before_request
 def before_request():
@@ -122,8 +122,16 @@ def login():
 def profile():
     if not g.user:
         return redirect(url_for('login'))
+    uid = g.user.id
+    reviewed = db.execute("SELECT * FROM reviews where uid = :uid", {"uid": uid}).fetchall()
 
-    return render_template('profile.html')
+    for review in reviewed:
+        bid = review.bid
+        books = db.execute("SELECT * FROM books WHERE id = :bid", {"bid": review.bid}).fetchall()
+
+        totalRatings = db.execute("SELECT CAST(AVG(rating) AS DECIMAL(10,2)) FROM reviews WHERE bid = :bid", {"bid": bid}).fetchall()
+
+    return render_template('profile.html', books=books, totalRating=totalRatings)
 
 
 @app.route("/book_search", methods=["GET", "POST"])

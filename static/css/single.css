@@ -47,6 +47,15 @@ header {
   height: 20vh;
 }
 
+/* custom styles */
+
+/* header {
+  padding: 0;
+  margin: 0;
+  padding-top: 3.5rem;
+  height: 20vh;
+} */
+
 @media (max-width:767px) {
   .single-book * {
     font-size: 1.2rem!important;
@@ -54,6 +63,12 @@ header {
   #reviews {
     width: 150%!important;
     margin-left: -25%!important;
+  }
+  header {
+    height: 10vh!important;
+  }
+  footer {
+    font-size: 12px;
   }
 }
 
