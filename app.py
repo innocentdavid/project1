@@ -124,7 +124,7 @@ def profile():
         return redirect(url_for('login'))
     uid = g.user.id
     
-    books = db.execute("SELECT books.id, books.title FROM books INNER JOIN reviews ON books.id = reviews.bid WHERE reviews.uid = :uid ORDER BY reviews.id DESC", {"uid": uid}).fetchall()
+    books = db.execute("SELECT books.isbn, books.title FROM books INNER JOIN reviews ON books.id = reviews.bid WHERE reviews.uid = :uid ORDER BY reviews.id DESC", {"uid": uid}).fetchall()
     
     return render_template('profile.html', books=books)
 
@@ -167,7 +167,7 @@ def book_search():
 
 
 @app.route('/api', methods=["GET", "POST"])
-def single():
+def api():
     if not g.user:
         return redirect(url_for('login'))
 
@@ -208,6 +208,7 @@ def single():
 def review():
     if not g.user:
         return redirect(url_for(index))
+        
     if request.method == "POST":
         bid = request.form['bid']
         uid = request.form['uid']
