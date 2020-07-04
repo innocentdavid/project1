@@ -1,5 +1,5 @@
 import os
-import math
+import requests
 
 from flask import (
     Flask,
@@ -123,15 +123,10 @@ def profile():
     if not g.user:
         return redirect(url_for('login'))
     uid = g.user.id
-    reviewed = db.execute("SELECT * FROM reviews where uid = :uid", {"uid": uid}).fetchall()
-
-    for review in reviewed:
-        bid = review.bid
-        books = db.execute("SELECT * FROM books WHERE id = :bid", {"bid": review.bid}).fetchall()
-
-        totalRatings = db.execute("SELECT CAST(AVG(rating) AS DECIMAL(10,2)) FROM reviews WHERE bid = :bid", {"bid": bid}).fetchall()
-
-    return render_template('profile.html', books=books, totalRating=totalRatings)
+    
+    books = db.execute("SELECT books.id, books.title FROM books INNER JOIN reviews ON books.id = reviews.bid WHERE reviews.uid = :uid ORDER BY reviews.id DESC", {"uid": uid}).fetchall()
+    
+    return render_template('profile.html', books=books)
 
 
 @app.route("/book_search", methods=["GET", "POST"])
@@ -171,18 +166,38 @@ def book_search():
     return redirect(url_for('index'))
 
 
-@app.route('/single', methods=["GET", "POST"])
+@app.route('/api', methods=["GET", "POST"])
 def single():
     if not g.user:
         return redirect(url_for('login'))
 
     if request.method == "GET":
-        bid = request.args.get('book')
+        isbn = request.args.get('isbn')
+        
+        res = requests.get("https://www.goodreads.com/book/review_counts.json", params={"key": "zEBi0HiQzdWXuFb9TodMQ", "isbns": f"{isbn}"})
+        if res.status_code !=200:
+            raise Exception("ERROR: API request failed!")
+        data = res.json()
+        
+        totalReview = data["books"][0]['work_reviews_count']
+        
+        totalRating = data["books"][0]['work_ratings_count']
+        
+        avg_rating = data["books"][0]['average_rating']
 
-        books = db.execute(f"SELECT * FROM books where id = {bid}").fetchall()
+        books = db.execute("SELECT * FROM books where isbn = :isbn", {"isbn": isbn}).fetchall()
+        
+        for book in books:
+            bid = book.id
+        
+            reviews = db.execute("SELECT CAST(AVG(rating) AS DECIMAL(10,2)) avg_rating, COUNT(*) totalreview FROM reviews WHERE bid = :bid",{"bid": bid})
+            
+            for review in reviews:
+                DtotalReview = review.totalreview
+                Davg_rating = review.avg_rating
 
         if books:
-            return render_template('single.html', books=books)
+            return render_template('api.html', books=books, totalReview=totalReview, totalRating=totalRating, avg_rating=avg_rating, DtotalReview=DtotalReview, Davg_rating=Davg_rating)
             
         return f'<div style="display:flex; justify-content:center; align-items:center; height:95vh"><h1>Hey <b style="color:blue;">{g.user.username}</b> stop playing with the url :) <a href="/">Go back</a></h1></div>'
 
@@ -239,3 +254,6 @@ def logout():
         return redirect(url_for('login'))
 
     return redirect(url_for('login'))
+    
+if __name__ == '__main__':
+    app.run()
