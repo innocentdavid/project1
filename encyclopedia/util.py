@@ -13,6 +13,19 @@ def list_entries():
                 for filename in filenames if filename.endswith(".md")))
 
 
+def q_entry(query):
+    """
+    Returns a list of all names of encyclopedia entries.
+    """
+    keyword = query
+    _, filenames = default_storage.listdir("entries")
+    res = list(sorted(re.sub(r"\.md$", "", filename)
+                for filename in filenames if filename.endswith(".md")))
+    print(filenames)
+    return res
+
+                
+                
 def save_entry(title, content):
     """
     Saves an encyclopedia entry, given its title and Markdown
@@ -32,6 +45,8 @@ def get_entry(title):
     """
     try:
         f = default_storage.open(f"entries/{title}.md")
+        
         return f.read().decode("utf-8")
+          
     except FileNotFoundError:
         return None
