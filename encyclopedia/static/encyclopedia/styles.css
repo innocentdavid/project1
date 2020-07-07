@@ -1,12 +1,12 @@
 * {
   font-family: Arial;
-  font-size: 1.5rem;
-  margin: 0;
-  padding: 0;
+  font-size: 1.25rem;
   box-sizing: border-box;
 }
 
 body {
+  width: 100vw;
+  overflow-x: hidden;
   margin: 0;
   background-color: white;
 }
@@ -30,7 +30,8 @@ textarea {
 }
 
 .main {
-  padding: 10px;
+  padding: 10px 70px;
+  min-height: 100vh;
 }
 
 .search {
@@ -41,7 +42,7 @@ textarea {
 
 .sidebar {
   background-color: #f0f0f0;
-  padding: 20px;
+  padding: 20px 40px;
 }
 
 .sidebar h2 {
