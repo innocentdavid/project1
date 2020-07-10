@@ -40,20 +40,35 @@ def q_entry(query):
     """
     Returns a list of all names of encyclopedia entries.
     """
-    query = query.lower()
+    # _, filenames = default_storage.listdir("entries")
+        
+    # result = list(sorted(re.sub(r"\.md$", "", filename) for filename in filenames if filename.endswith(".md")))
+    
+    # files=[]
+    # for filename in result:
+    #     if query == filename:
+    #         return filename
+    #     if re.findall(f"{query}", filename):
+    #         t=filename
+    #         files.append(t)
+    # #print(files)
+    # return files
+
     _, filenames = default_storage.listdir("entries")
         
     result = list(sorted(re.sub(r"\.md$", "", filename) for filename in filenames if filename.endswith(".md")))
-    
+
     files=[]
     for filename in result:
-        if query == filename:
-            return filename
-        if re.findall(f"{query}", filename):
-            t=filename
-            files.append(t)
-    #print(files)
-    return files
+        fn = filename.lower()
+        if query == fn:
+            # print(fn)
+            return fn
+
+        if re.findall(f"{query}", fn):
+            files.append(fn)
+            print(files)
+            # return files
                 
 def save_entry(title, content):
     """
