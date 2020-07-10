@@ -14,8 +14,6 @@ def change_permissions_recursive(path, mode):
             os.chmod(file, mode)
             
 change_permissions_recursive('./entries', 0o777)
-os.chmod('./entries/Html.md', 0o777)
-os.chmod('./entries/A.md', 0o777)
 
 def list_entries():
     """

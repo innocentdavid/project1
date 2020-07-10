@@ -22,14 +22,16 @@ def createNewPage(request):
         content = request.POST['content']
         res = util.save_entry(title, content)
         if res == "success":
-            res = util.get_entry(title)
-            if res == None:
+            r = util.get_entry(title)
+            if r == None:
                 entry = '<center><h1>No such entry!</h1></center>'
             else:
-               entry = markdown(res)
-               
-            return render(request, "encyclopedia/entry.html", {"entry": entry})
-            
+                entry = markdown(r)
+                return render(request, "encyclopedia/entry.html", {
+                    "entry": entry,
+                    "title": title
+                })
+
         return render(request, "encyclopedia/entry.html", {
             "entry": f"{title} => Already exiest!"
         })
@@ -43,6 +45,7 @@ def delete_entry(request, title):
 
     return redirect("/")
 
+
 def edit_entry(request):
     if request.POST:
         title = request.POST['title'].capitalize()
@@ -53,20 +56,21 @@ def edit_entry(request):
             if res == None:
                 entry = '<center><h1>No such entry!</h1></center>'
             else:
-               entry = markdown(res)
-               
+                entry = markdown(res)
+
             return render(request, "encyclopedia/entry.html", {"entry": entry})
-        
+
     title = request.GET["q"]
     res = util.edit_entry_form(title)
     if res == None:
         return "er"
-    
+
     return render(request, "encyclopedia/edit.html", {
         "content": res,
         "title": title
     })
-    
+
+
 def entry(request, title):
     if title == "rand":
 
