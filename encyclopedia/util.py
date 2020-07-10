@@ -20,11 +20,6 @@ def list_entries():
     Returns a list of all names of encyclopedia entries.
     """
     _, filenames = default_storage.listdir("entries")
-
-    for filename in filenames:
-        if filename.endswith(".md"):
-            res = list(sorted(re.sub(r"\.md$", "", filename)))
-            #print(res)
   
     rest = list(sorted(re.sub(r"\.md$", "", filename) 
                 for filename in filenames if filename.endswith(".md")))
@@ -77,7 +72,6 @@ def q_entry(query):
         if re.findall(f"{query}", fn):
             files=[]
             files.append(fn.capitalize())
-            print(p)
             #print()
             return files
                 

@@ -15,6 +15,41 @@ def index(request):
         "entries": util.list_entries()
     })
 
+def entry(request, title):
+    if title == "rand":
+        entry = markdown(util.rand_list_entries())
+        return render(request, "encyclopedia/entry.html", {
+            "entry": entry,
+            "title": title
+        })
+
+    result = util.get_entry(title)
+    if result == None:
+        entry = '<center><h1>No such entry!</h1></center>'
+    else:
+        entry = markdown(result)
+    return render(request, "encyclopedia/entry.html", {
+        "entry": entry,
+        "title": title
+    })
+
+def q_entry(request):
+    if request.GET:
+        req = request.GET['q']
+        query = req.lower()
+
+        res = util.q_entry(query)
+        if res == query:
+            f = default_storage.open(f"entries/{res}.md")
+            fr = f.read().decode("utf-8")
+            entry = markdown(fr)
+            return render(request, "encyclopedia/entry.html", {"entry": entry})
+
+        return render(request, "encyclopedia/search.html", {
+            "entries": util.q_entry(query)
+        })
+
+    return redirect('/')
 
 def createNewPage(request):
     if request.POST:
@@ -71,44 +106,5 @@ def edit_entry(request):
     })
 
 
-def entry(request, title):
-    if title == "rand":
-
-        res = util.rand_list_entries()
-        entry = markdown(res)
-
-        return render(request, "encyclopedia/entry.html", {
-            "entry": entry,
-            "title": title
-        })
-
-    res = util.get_entry(title)
-    if res == None:
-        entry = '<center><h1>No such entry!</h1></center>'
-    else:
-        entry = markdown(res)
-
-    return render(request, "encyclopedia/entry.html", {
-        "entry": entry,
-        "title": title
-    })
 
 
-def q_entry(request):
-    if request.GET:
-        req = request.GET['q']
-        query = req.lower()
-
-        res = util.q_entry(query)
-        if res == query:
-            f = default_storage.open(f"entries/{res}.md")
-            fr = f.read().decode("utf-8")
-            entry = markdown(fr)
-            return render(request, "encyclopedia/entry.html", {"entry": entry})
-
-        return render(request, "encyclopedia/search.html", {
-            "entries": util.q_entry(query)
-        })
-
-    return "error"
-    # return redirect(url_for('index'))
