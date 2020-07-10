@@ -22,9 +22,14 @@ def createNewPage(request):
         content = request.POST['content']
         res = util.save_entry(title, content)
         if res == "success":
-            return render(request, "encyclopedia/entry.html", {
-                "entry": f"{title}'s page has been created successfully!"
-            })
+            res = util.get_entry(title)
+            if res == None:
+                entry = '<center><h1>No such entry!</h1></center>'
+            else:
+               entry = markdown(res)
+               
+            return render(request, "encyclopedia/entry.html", {"entry": entry})
+            
         return render(request, "encyclopedia/entry.html", {
             "entry": f"{title} => Already exiest!"
         })
@@ -38,7 +43,30 @@ def delete_entry(request, title):
 
     return redirect("/")
 
-
+def edit_entry(request):
+    if request.POST:
+        title = request.POST['title'].capitalize()
+        content = request.POST['content']
+        res = util.edit_entry(title, content)
+        if res == "success":
+            res = util.get_entry(title)
+            if res == None:
+                entry = '<center><h1>No such entry!</h1></center>'
+            else:
+               entry = markdown(res)
+               
+            return render(request, "encyclopedia/entry.html", {"entry": entry})
+        
+    title = request.GET["q"]
+    res = util.edit_entry_form(title)
+    if res == None:
+        return "er"
+    
+    return render(request, "encyclopedia/edit.html", {
+        "content": res,
+        "title": title
+    })
+    
 def entry(request, title):
     if title == "rand":
 
@@ -46,7 +74,8 @@ def entry(request, title):
         entry = markdown(res)
 
         return render(request, "encyclopedia/entry.html", {
-            "entry": entry
+            "entry": entry,
+            "title": title
         })
 
     res = util.get_entry(title)
@@ -56,7 +85,8 @@ def entry(request, title):
         entry = markdown(res)
 
     return render(request, "encyclopedia/entry.html", {
-        "entry": entry
+        "entry": entry,
+        "title": title
     })
 
 

@@ -1,0 +1,26 @@
+{% extends "encyclopedia/layout.html" %}
+
+{% block title %}
+Encyclopedia | Create New Page
+{% endblock %}
+
+{% block body %}
+<form id="createNewPage" action="/createNewPage" method="POST" accept-charset="utf-8">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="title">Title</label>
+    <input type="text" name="title" id="title" placeholder="Title" require class="form-control" />
+  </div>
+  <ul>
+    <li>You can use <code>Plain text</code>, <code>Html</code> or <code>Markdown</code> to write up the content</li>
+  </ul>
+  <div class="form-group">
+    <textarea name="content" id="content" placeholder="Enter Content here"></textarea>
+  </div>
+  <div class="">
+    <button type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-danger">Discard</button>
+  </div>
+</form>
+
+{% endblock body %}
