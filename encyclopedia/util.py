@@ -13,7 +13,7 @@ def change_permissions_recursive(path, mode):
     for file in [os.path.join(root, f) for f in files]:
             os.chmod(file, mode)
             
-change_permissions_recursive('./entries', 0o777)
+# change_permissions_recursive('./entries', 0o777)
 
 def list_entries():
     """
@@ -41,38 +41,21 @@ def rand_list_entries():
     except FileNotFoundError:
         return None
 
-def q_entry(query):
+def search(query):
     """
     Returns a list of all names of encyclopedia entries.
     """
-    # _, filenames = default_storage.listdir("entries")
-        
-    # result = list(sorted(re.sub(r"\.md$", "", filename) for filename in filenames if filename.endswith(".md")))
-    
-    # files=[]
-    # for filename in result:
-    #     if query == filename:
-    #         return filename
-    #     if re.findall(f"{query}", filename):
-    #         t=filename
-    #         files.append(t)
-    # #print(files)
-    # return files
-
     _, filenames = default_storage.listdir("entries")
         
     result = list(sorted(re.sub(r"\.md$", "", filename) for filename in filenames if filename.endswith(".md")))
-
     for filename in result:
         fn = filename.lower()
         if query == fn:
-            # print(fn)
             return fn
 
         if re.findall(f"{query}", fn):
             files=[]
             files.append(fn.capitalize())
-            #print()
             return files
                 
 def save_entry(title, content):

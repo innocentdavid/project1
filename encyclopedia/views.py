@@ -1,6 +1,7 @@
 import re
 
 from markdown2 import markdown
+
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.files.base import ContentFile
@@ -33,12 +34,12 @@ def entry(request, title):
         "title": title
     })
 
-def q_entry(request):
+def search(request):
     if request.GET:
         req = request.GET['q']
         query = req.lower()
 
-        res = util.q_entry(query)
+        res = util.search(query)
         if res == query:
             f = default_storage.open(f"entries/{res}.md")
             fr = f.read().decode("utf-8")
@@ -46,10 +47,8 @@ def q_entry(request):
             return render(request, "encyclopedia/entry.html", {"entry": entry})
 
         return render(request, "encyclopedia/search.html", {
-            "entries": util.q_entry(query)
+            "entries": util.search(query)
         })
-
-    return redirect('/')
 
 def createNewPage(request):
     if request.POST:
@@ -68,7 +67,7 @@ def createNewPage(request):
                 })
 
         return render(request, "encyclopedia/entry.html", {
-            "entry": f"{title} => Already exiest!"
+            "entry": f"<center><h1><a href='/wiki/{title}' style='font-size: 65px;'>{title}</a> Page Already exiest!</h1></center>"
         })
 
     return render(request, "encyclopedia/createPage.html")
@@ -87,13 +86,15 @@ def edit_entry(request):
         content = request.POST['content']
         res = util.edit_entry(title, content)
         if res == "success":
-            res = util.get_entry(title)
-            if res == None:
+            r = util.get_entry(title)
+            if r == None:
                 entry = '<center><h1>No such entry!</h1></center>'
             else:
-                entry = markdown(res)
-
-            return render(request, "encyclopedia/entry.html", {"entry": entry})
+                entry = markdown(r)
+                return render(request, "encyclopedia/entry.html", {
+                    "entry": entry,
+                    "title": title
+                })
 
     title = request.GET["q"]
     res = util.edit_entry_form(title)

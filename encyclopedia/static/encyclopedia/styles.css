@@ -11,6 +11,11 @@ body {
   background-color: white;
 }
 
+::selection{
+  background: yellowgreen;
+  color: white;
+}
+
 code {
   white-space: pre;
 }
@@ -46,6 +51,13 @@ textarea {
 
 .sidebar h2 {
   margin-top: 5px;
+}
+
+.editDelete{
+  position: absolute;
+  top: 2rem;
+  right: 25px;
+  width: 20%;
 }
 
 @media (min-width: 767px) {

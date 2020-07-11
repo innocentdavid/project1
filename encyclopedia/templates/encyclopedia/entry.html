@@ -5,18 +5,15 @@ Encyclopedia
 {% endblock %}
 
 {% block body %}
-<div class="container-fluid">
-  <div class="row">
-    <span class="col-4 col-md-3" style="display: flex; justify-content:space-between;align-items:center;">
-      <a href="/edit_entry?q={{ title }}">
-        <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:24px;color:#5dd0f5;"></i>
-      </a>
-      <a href="/delete_entry/{{ title }}">
-        <i class="fa fa-trash-o" style="font-size:24px;color:red"></i>
-      </a>
-    </span>
-  </div>
-</div>
+  <span class="editDelete">
+    <a href="/edit_entry?q={{ title }}">
+      <i class="fa fa-pencil-square-o" aria-hidden="true" style="font-size:24px;color:#5dd0f5;"></i>
+    </a>
+    <a class="ml-3"href="/delete_entry/{{ title }}">
+      <i class="fa fa-trash-o" style="font-size:24px;color:red"></i>
+    </a>
+  </span>
 {{ entry | safe }}
 
-{% endblock %}
+
+{% endblock body %}

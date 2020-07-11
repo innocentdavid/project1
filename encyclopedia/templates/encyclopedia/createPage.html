@@ -9,17 +9,17 @@ Encyclopedia | Create New Page
   {% csrf_token %}
   <div class="form-group">
     <label for="title">Title</label>
-    <input type="text" name="title" id="title" placeholder="Title" require class="form-control" />
+    <input type="text" name="title" id="title" placeholder="Title" tabindex="1" autofocus require class="form-control" />
   </div>
   <ul>
-    <li>You can use <code>Plain text</code>, <code>Html</code> or <code>Markdown</code> to write up the content</li>
+    <li>You can use <code>Plain text</code>, <code><a href='/wiki/Html'>Html</a></code> or <code><a href='/wiki/Markdown'>Markdown</a></code> to write up the content</li>
   </ul>
   <div class="form-group">
-    <textarea name="content" id="content" placeholder="Enter Content here"></textarea>
+    <textarea name="content" id="content" placeholder="Enter Content here" tabindex="2"></textarea>
   </div>
   <div class="">
-    <button type="submit" class="btn btn-success">Submit</button>
-    <button type="submit" class="btn btn-danger">Discard</button>
+    <button type="submit" class="btn btn-success" tabindex="3">Submit</button>
+    <a href="/" class="btn btn-danger">Discard</a>
   </div>
 </form>
 
